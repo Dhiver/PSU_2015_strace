@@ -5,11 +5,10 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Thu Mar 31 14:51:11 2016 Bastien DHIVER
+** Last update Thu Mar 31 22:38:20 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
-#include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -19,38 +18,46 @@
 #include <sys/user.h>
 #include "strace.h"
 
-void	print_wait_status(int status)
-{
-  if (WIFSTOPPED(status))
-    fprintf(stderr, CHILD_STOP, WSTOPSIG(status));
-  else if (WIFEXITED(status))
-    fprintf(stderr, CHILD_EXIT, WEXITSTATUS(status));
-  else if (WIFSIGNALED(status))
-    fprintf(stderr, CHILD_STOP, WTERMSIG(status));
-  else if (WCOREDUMP(status))
-    fprintf(stderr, CHILD_SEGV);
-}
-
-int	do_child(t_args *args)
+int	be_the_child(char **av, char **ae)
 {
   if (ptrace(PTRACE_TRACEME, 0, NULL, NULL) == -1)
-    return (display_error(errno, 1));
-  if (kill(getpid(), SIGSTOP) == -1)
-    return (display_error(errno, 1));
-  return (execve(args->av[0], args->av, args->ae));
-}
-
-int				do_trace(pid_t pid)
-{
-  int				status;
-  struct user_regs_struct	regs;
-
-  waitpid(pid, &status, 0);
-  print_wait_status(status);
-  while (WIFSTOPPED(status))
-    {
-      if (get_regs(pid, &regs))
-	break;
-    }
+    return (fprintf(stderr, strerror(errno)), 1);
+  if (execve(av[0], av, ae) == -1)
+    return (fprintf(stderr, strerror(errno)), 1);
   return (0);
 }
+
+int				inspect_regs(pid_t pid)
+{
+  struct user_regs_struct	regs;
+
+  if (ptrace(PTRACE_GETREGS, pid, NULL, &regs) == -1)
+    return (fprintf(stderr, strerror(errno)), 1);
+  if (regs.orig_rax && (signed)regs.orig_rax != -1)
+    printf("%lld = 0x%llx\n", regs.orig_rax, regs.rax);
+  return (0);
+}
+
+int	be_the_parent(pid_t pid, int details)
+{
+  int	status;
+
+  (void)details;
+  if (waitpid(pid, &status, 0) == -1)
+    return (fprintf(stderr, strerror(errno)), 1);
+  while (WIFSTOPPED(status))
+    {
+      if (inspect_regs(pid))
+	return (1);
+      if (ptrace(PTRACE_SINGLESTEP, pid, NULL, NULL) == -1)
+	return (fprintf(stderr, strerror(errno)), 1);
+      if (waitpid(pid, &status, 0) == -1)
+	return (fprintf(stderr, strerror(errno)), 1);
+    }
+  /*fprintf(stderr, "exit_group(%d)\n", WSTOPSIG(status));*/
+  fprintf(stderr, "+++ exited with %d +++\n", WSTOPSIG(status));
+  /*if (ptrace(PTRACE_DETACH, pid, NULL, NULL) == -1)*/
+    /*return (fprintf(stderr, strerror(errno)), 1);*/
+  return (0);
+}
+

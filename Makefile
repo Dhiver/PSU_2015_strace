@@ -5,7 +5,7 @@
 ## Login   <dhiver_b@epitech.net>
 ## 
 ## Started on  Thu Mar 31 13:20:36 2016 Bastien DHIVER
-## Last update Thu Mar 31 14:03:48 2016 Bastien DHIVER
+## Last update Thu Mar 31 19:56:02 2016 Bastien DHIVER
 ##
 
 CC	= gcc
@@ -23,8 +23,7 @@ INCF	= include/
 
 SRCS	= $(SRCF)strace.c	\
 	  $(SRCF)utils.c	\
-	  $(SRCF)trace.c	\
-	  $(SRCF)regs.c
+	  $(SRCF)trace.c
 
 OBJS	= $(SRCS:.c=.o)
 

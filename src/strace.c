@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Thu Mar 31 14:35:39 2016 Bastien DHIVER
+** Last update Thu Mar 31 22:35:40 2016 Bastien DHIVER
 */
 
 #include <errno.h>
@@ -23,6 +23,8 @@ int		get_args(int ac, char **av, t_args *args)
   long int	p;
 
   optind = 1;
+  args->pid = -1;
+  args->details = 0;
   while ((opt = getopt(ac, av, "sp:")) != -1)
     {
       if (opt == 's')
@@ -31,33 +33,47 @@ int		get_args(int ac, char **av, t_args *args)
 	{
 	  if (get_nbr(optarg, &p) || args->pid <= 1)
 	    return (display_usage());
+	  args->pid = (pid_t)p;
 	}
       else
 	return (display_usage());
     }
-  args->ac = ac - 1;
   args->av = av + 1;
-  args->pid = (pid_t)p;
+  return (0);
+}
+
+int	run_process(t_args *args)
+{
+  pid_t	pid;
+  int	details;
+
+  details = args->details;
+  if ((pid = fork()) == 1)
+    return (display_error(errno, 1));
+  if (pid == 0)
+    return (be_the_child(args->av, args->ae));
+  else
+    return (be_the_parent(pid, details));
+}
+
+int	attach_process(t_args *args)
+{
+  (void)args;
   return (0);
 }
 
 int		main(int ac, char **av, char **ae)
 {
-  pid_t		pid;
   t_args	args;
 
   if (ac < 2)
     return (display_usage());
-  args.details = 0;
-  args.pid = -1;
   args.ae = ae;
   if (get_args(ac, av, &args))
     return (1);
-  if ((pid = fork()) == 1)
-    return (display_error(errno, 1));
-  if (pid == 0)
-    return (do_child(&args));
+  if (args.details)
+    return (attach_process(&args));
   else
-    return (do_trace(pid));
+    return (run_process(&args));
   return (0);
 }
