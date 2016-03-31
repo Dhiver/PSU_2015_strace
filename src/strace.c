@@ -5,11 +5,12 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Thu Mar 31 22:35:40 2016 Bastien DHIVER
+** Last update Thu Mar 31 22:59:50 2016 Bastien DHIVER
 */
 
 #include <errno.h>
 #include <stdio.h>
+#include <string.h>
 #include "strace.h"
 
 int	display_usage(void)
@@ -68,6 +69,7 @@ int		main(int ac, char **av, char **ae)
 
   if (ac < 2)
     return (display_usage());
+  bzero(&args, sizeof(args));
   args.ae = ae;
   if (get_args(ac, av, &args))
     return (1);

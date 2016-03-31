@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Thu Mar 31 22:38:20 2016 Bastien DHIVER
+** Last update Thu Mar 31 23:00:10 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
@@ -31,6 +31,7 @@ int				inspect_regs(pid_t pid)
 {
   struct user_regs_struct	regs;
 
+  bzero(&regs, sizeof(regs));
   if (ptrace(PTRACE_GETREGS, pid, NULL, &regs) == -1)
     return (fprintf(stderr, strerror(errno)), 1);
   if (regs.orig_rax && (signed)regs.orig_rax != -1)
