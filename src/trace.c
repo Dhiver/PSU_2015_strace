@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Thu Mar 31 23:00:10 2016 Bastien DHIVER
+** Last update Sat Apr 02 22:38:04 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
@@ -39,20 +39,20 @@ int				inspect_regs(pid_t pid)
   return (0);
 }
 
-int	be_the_parent(pid_t pid, int details)
+int	be_the_parent(int details)
 {
   int	status;
 
   (void)details;
-  if (waitpid(pid, &status, 0) == -1)
+  if (waitpid(g_pid, &status, 0) == -1)
     return (fprintf(stderr, strerror(errno)), 1);
   while (WIFSTOPPED(status))
     {
-      if (inspect_regs(pid))
+      if (inspect_regs(g_pid))
 	return (1);
-      if (ptrace(PTRACE_SINGLESTEP, pid, NULL, NULL) == -1)
+      if (ptrace(PTRACE_SINGLESTEP, g_pid, NULL, NULL) == -1)
 	return (fprintf(stderr, strerror(errno)), 1);
-      if (waitpid(pid, &status, 0) == -1)
+      if (waitpid(g_pid, &status, 0) == -1)
 	return (fprintf(stderr, strerror(errno)), 1);
     }
   /*fprintf(stderr, "exit_group(%d)\n", WSTOPSIG(status));*/

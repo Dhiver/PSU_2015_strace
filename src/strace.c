@@ -5,13 +5,16 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Thu Mar 31 22:59:50 2016 Bastien DHIVER
+** Last update Sat Apr 02 22:38:06 2016 Bastien DHIVER
 */
 
 #include <errno.h>
+#include <signal.h>
 #include <stdio.h>
 #include <string.h>
 #include "strace.h"
+
+pid_t	g_pid = 0;
 
 int	display_usage(void)
 {
@@ -24,7 +27,6 @@ int		get_args(int ac, char **av, t_args *args)
   long int	p;
 
   optind = 1;
-  args->pid = -1;
   args->details = 0;
   while ((opt = getopt(ac, av, "sp:")) != -1)
     {
@@ -32,9 +34,9 @@ int		get_args(int ac, char **av, t_args *args)
 	args->details = 1;
       else if (opt == 'p')
 	{
-	  if (get_nbr(optarg, &p) || args->pid <= 1)
+	  if (get_nbr(optarg, &p) || p <= 1)
 	    return (display_usage());
-	  args->pid = (pid_t)p;
+	  g_pid = (pid_t)p;
 	}
       else
 	return (display_usage());
@@ -45,16 +47,15 @@ int		get_args(int ac, char **av, t_args *args)
 
 int	run_process(t_args *args)
 {
-  pid_t	pid;
   int	details;
 
   details = args->details;
-  if ((pid = fork()) == 1)
+  if ((g_pid = fork()) == 1)
     return (display_error(errno, 1));
-  if (pid == 0)
+  if (g_pid == 0)
     return (be_the_child(args->av, args->ae));
   else
-    return (be_the_parent(pid, details));
+    return (be_the_parent(details));
 }
 
 int	attach_process(t_args *args)
@@ -69,11 +70,12 @@ int		main(int ac, char **av, char **ae)
 
   if (ac < 2)
     return (display_usage());
+  signal(SIGINT, get_sigint);
   bzero(&args, sizeof(args));
   args.ae = ae;
   if (get_args(ac, av, &args))
     return (1);
-  if (args.details)
+  if (g_pid != 0)
     return (attach_process(&args));
   else
     return (run_process(&args));
