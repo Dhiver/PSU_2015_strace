@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Sun Apr 03 20:49:31 2016 Bastien DHIVER
+** Last update Sun Apr 03 21:48:06 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -59,6 +59,5 @@ void				get_sigint(int);
 ** printing.c
 */
 void				main_printing(t_regs *, t_bool);
-
 
 #endif /* !STRACE_H_ */
