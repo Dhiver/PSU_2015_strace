@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Sun Apr 03 12:40:27 2016 Bastien DHIVER
+** Last update Sun Apr 03 14:56:57 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -15,6 +15,8 @@
 # include <sys/user.h>
 
 # define USAGE		"Usage : ./strace [-s] [-p <pid>|<command>]\n"
+
+# define print(...)	fprintf (stderr, __VA_ARGS__)
 
 extern pid_t		g_pid;
 
