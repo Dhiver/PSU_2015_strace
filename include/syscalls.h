@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sat Apr 02 23:45:45 2016 Bastien DHIVER
-** Last update Sun Apr 03 12:07:29 2016 Bastien DHIVER
+** Last update Sun Apr 03 12:25:39 2016 Bastien DHIVER
 */
 
 #ifndef SYSCALLS_H_
@@ -13,17 +13,33 @@
 
 # define QUOTE(stuff)	#stuff
 
-# define UNKN		0
-# define CHAR		1
-# define INT		2
-# define STR		3
-# define ADDR		4
-# define STRUC		5
-# define SIZE_T		6
-# define INT_2		7
-# define USI_L		8
-# define STRSTR		9
-# define LONG		10
+enum	my_types
+{
+  E_UNKN,
+  E_CHAR,
+  E_INT,
+  E_STR,
+  E_ADDR,
+  E_STRUC,
+  E_SIZE_T,
+  E_INT_2,
+  E_USI_L,
+  E_STRSTR,
+  E_LONG,
+  E_END
+};
+
+# define UNKN		E_UNKN
+# define CHAR		E_CHAR
+# define INT		E_INT
+# define STR		E_STR
+# define ADDR		E_ADDR
+# define STRUC		E_STRUCT
+# define SIZE_T		E_SIZE_T
+# define INT_2		E_INT_2
+# define USI_L		E_USI_L
+# define STRSTR		E_STRSTR
+# define LONG		E_LONG
 
 # define S_UNKN		QUOTE(0)
 # define S_CHAR		QUOTE(1)
