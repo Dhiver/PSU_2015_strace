@@ -5,13 +5,14 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Sat Apr 02 22:37:20 2016 Bastien DHIVER
+** Last update Sun Apr 03 12:40:27 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
 # define STRACE_H_
 
 # include <unistd.h>
+# include <sys/user.h>
 
 # define USAGE		"Usage : ./strace [-s] [-p <pid>|<command>]\n"
 
@@ -33,6 +34,11 @@ int			be_the_child(char **, char **);
 ** signals.c
 */
 void			get_sigint(int);
+
+/*
+** printing.c
+*/
+void			main_printing(struct user_regs_struct *, int);
 
 
 #endif /* !STRACE_H_ */
