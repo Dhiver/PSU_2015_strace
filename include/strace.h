@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Sun Apr 03 18:36:44 2016 Bastien DHIVER
+** Last update Sun Apr 03 20:49:31 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -15,13 +15,15 @@
 # include <sys/user.h>
 
 # define USAGE			"Usage : ./strace [-s] [-p <pid>|<command>]\n"
-# define PRINT_SPACE		(40)
+# define PRINT_SPACE		(39)
 
 # define print(...)		fprintf (stderr, __VA_ARGS__)
 
 extern pid_t			g_pid;
 
 typedef	struct user_regs_struct	t_regs;
+
+typedef unsigned long long int	long_stuff;
 
 typedef	enum			e_bool
 {
