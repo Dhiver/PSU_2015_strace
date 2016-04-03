@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:18:13 2016 Bastien DHIVER
-** Last update Sun Apr 03 14:52:08 2016 Bastien DHIVER
+** Last update Sun Apr 03 15:24:16 2016 Bastien DHIVER
 */
 
 #include <stdlib.h>
@@ -16,7 +16,7 @@
 
 int	display_error(int errsav, int ret_code)
 {
-  return (print(strerror(errsav)), ret_code);
+  return (print("%s\n", strerror(errsav)), ret_code);
 }
 
 int	get_nbr(char *str, long int *nbr)

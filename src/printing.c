@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sun Apr 03 12:36:29 2016 Bastien DHIVER
-** Last update Sun Apr 03 14:55:42 2016 Bastien DHIVER
+** Last update Sun Apr 03 15:34:03 2016 Bastien DHIVER
 */
 
 #include <sys/user.h>
@@ -13,7 +13,7 @@
 #include "strace.h"
 #include "syscalls.h"
 
-void	main_printing(struct user_regs_struct *regs, int details)
+void	main_printing(t_regs *regs, t_bool details)
 {
   (void)details;
   print("%s() %39s%llx\n", g_syscalls[regs->orig_rax].name, "= 0x", regs->rax);

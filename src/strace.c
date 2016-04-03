@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Sun Apr 03 14:50:14 2016 Bastien DHIVER
+** Last update Sun Apr 03 15:26:20 2016 Bastien DHIVER
 */
 
 #include <errno.h>
@@ -28,11 +28,11 @@ int		get_args(int ac, char **av, t_args *args)
   long int	p;
 
   optind = 1;
-  args->details = 0;
+  args->details = FALSE;
   while ((opt = getopt(ac, av, "sp:")) != -1)
     {
       if (opt == 's')
-	args->details = 1;
+	args->details = TRUE;
       else if (opt == 'p')
 	{
 	  if (get_nbr(optarg, &p) || p <= 1)
@@ -48,18 +48,15 @@ int		get_args(int ac, char **av, t_args *args)
 
 int	run_process(t_args *args)
 {
-  int	details;
-
-  details = args->details;
   if ((g_pid = fork()) == 1)
     return (display_error(errno, 1));
   if (g_pid == 0)
     return (be_the_child(args->av, args->ae));
   else
-    return (be_the_parent(details));
+    return (be_the_parent(args->details));
 }
 
-int	attach_process(int details)
+int	attach_process(t_bool details)
 {
   if (ptrace(PTRACE_ATTACH, g_pid, NULL, NULL) == -1)
     return (display_error(errno, 1));
@@ -78,7 +75,7 @@ int		main(int ac, char **av, char **ae)
   args.ae = ae;
   if (get_args(ac, av, &args))
     return (1);
-  if (g_pid != 0)
+  if (g_pid)
     return (attach_process(args.details));
   else
     return (run_process(&args));

@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Sun Apr 03 14:56:57 2016 Bastien DHIVER
+** Last update Sun Apr 03 15:33:25 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -14,33 +14,48 @@
 # include <unistd.h>
 # include <sys/user.h>
 
-# define USAGE		"Usage : ./strace [-s] [-p <pid>|<command>]\n"
+# define USAGE			"Usage : ./strace [-s] [-p <pid>|<command>]\n"
 
-# define print(...)	fprintf (stderr, __VA_ARGS__)
+# define print(...)		fprintf (stderr, __VA_ARGS__)
 
-extern pid_t		g_pid;
+extern pid_t			g_pid;
 
-typedef	struct		s_args
+typedef	struct user_regs_struct	t_regs;
+
+typedef	enum			e_bool
 {
-  int			details;
-  char			**av;
-  char			**ae;
-}			t_args;
+  FALSE,
+  TRUE
+}				t_bool;
 
-int			display_error(int, int);
-int			get_nbr(char *, long int *);
-int			be_the_parent(int);
-int			be_the_child(char **, char **);
+typedef	struct			s_args
+{
+  t_bool			details;
+  char				**av;
+  char				**ae;
+}				t_args;
+
+/*
+** utils.c
+*/
+int				display_error(int, int);
+int				get_nbr(char *, long int *);
+
+/*
+** trace.c
+*/
+int				be_the_parent(t_bool);
+int				be_the_child(char **, char **);
 
 /*
 ** signals.c
 */
-void			get_sigint(int);
+void				get_sigint(int);
 
 /*
 ** printing.c
 */
-void			main_printing(struct user_regs_struct *, int);
+void				main_printing(t_regs *, t_bool);
 
 
 #endif /* !STRACE_H_ */
