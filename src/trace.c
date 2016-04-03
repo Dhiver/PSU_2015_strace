@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Sat Apr 02 22:59:30 2016 Bastien DHIVER
+** Last update Sun Apr 03 00:44:50 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
@@ -56,8 +56,6 @@ int	be_the_parent(int details)
 	return (fprintf(stderr, strerror(errno)), 1);
     }
   fprintf(stderr, "+++ exited with %d +++\n", WSTOPSIG(status));
-  /*if (ptrace(PTRACE_DETACH, pid, NULL, NULL) == -1)*/
-    /*return (fprintf(stderr, strerror(errno)), 1);*/
   return (0);
 }
 
