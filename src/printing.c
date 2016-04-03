@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sun Apr 03 12:36:29 2016 Bastien DHIVER
-** Last update Sun Apr 03 15:34:03 2016 Bastien DHIVER
+** Last update Sun Apr 03 18:41:19 2016 Bastien DHIVER
 */
 
 #include <sys/user.h>
@@ -16,5 +16,12 @@
 void	main_printing(t_regs *regs, t_bool details)
 {
   (void)details;
-  print("%s() %39s%llx\n", g_syscalls[regs->orig_rax].name, "= 0x", regs->rax);
+  int	print_cur;
+
+  print_cur = PRINT_SPACE;
+  print_cur -= print("%s() ", g_syscalls[regs->orig_rax].name);
+  while (--print_cur >= 0)
+    printf(" ");
+  printf("= ");
+  printf("0x%llx\n", regs->rax);
 }
