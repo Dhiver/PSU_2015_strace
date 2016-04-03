@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Sun Apr 03 00:44:50 2016 Bastien DHIVER
+** Last update Sun Apr 03 12:35:17 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
@@ -17,6 +17,7 @@
 #include <errno.h>
 #include <sys/user.h>
 #include "strace.h"
+#include "syscalls.h"
 
 int	be_the_child(char **av, char **ae)
 {
@@ -35,7 +36,7 @@ int				inspect_regs(pid_t pid)
   if (ptrace(PTRACE_GETREGS, pid, NULL, &regs) == -1)
     return (fprintf(stderr, strerror(errno)), 1);
   if (regs.orig_rax && (signed)regs.orig_rax != -1)
-    printf("%lld = 0x%llx\n", regs.orig_rax, regs.rax);
+    printf("%s() %39s%llx\n", g_syscalls[regs.orig_rax].name, "= 0x", regs.rax);
   return (0);
 }
 
