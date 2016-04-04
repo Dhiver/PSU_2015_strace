@@ -2,7 +2,6 @@
 
 - [ ] How to handle a segfaulting program ? (Florian)
 	- [ ] Remove current infinite wait
-- [ ] Improve global speed (as the real strace) (Florian)
 - [/] -p (Bastien)
 	- [ ] Do not exit when detach
 	- [ ] Do not freez the attached program
