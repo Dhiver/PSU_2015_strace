@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sat Apr 02 22:31:08 2016 Bastien DHIVER
-** Last update Sun Apr 03 14:55:19 2016 Bastien DHIVER
+** Last update Mon Apr 04 12:58:07 2016 Bastien DHIVER
 */
 
 #include <stdio.h>
@@ -18,9 +18,12 @@
 void	get_sigint(int sig)
 {
   (void)sig;
-  if (ptrace(PTRACE_DETACH, g_pid, NULL, NULL) == -1)
-    print(strerror(errno));
+  if (g_attach)
+    if (ptrace(PTRACE_DETACH, g_pid, NULL, NULL) == -1)
+      display_error(errno, 0);
   print("Process %d detached\n", g_pid);
   print(" <detached ...>\n");
-  exit(0);
+  if (!g_attach)
+    exit(0);
 }
+
