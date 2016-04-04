@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Sun Apr 03 21:48:06 2016 Bastien DHIVER
+** Last update Mon Apr 04 13:01:57 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -19,17 +19,18 @@
 
 # define print(...)		fprintf (stderr, __VA_ARGS__)
 
-extern pid_t			g_pid;
-
-typedef	struct user_regs_struct	t_regs;
-
-typedef unsigned long long int	long_stuff;
-
 typedef	enum			e_bool
 {
   FALSE,
   TRUE
 }				t_bool;
+
+extern pid_t			g_pid;
+extern t_bool			g_attach;
+
+typedef	struct user_regs_struct	t_regs;
+
+typedef unsigned long long int	long_stuff;
 
 typedef	struct			s_args
 {
