@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Sun Apr 03 15:26:20 2016 Bastien DHIVER
+** Last update Mon Apr 04 12:58:06 2016 Bastien DHIVER
 */
 
 #include <errno.h>
@@ -16,6 +16,7 @@
 #include "strace.h"
 
 pid_t	g_pid = 0;
+t_bool	g_attach = FALSE;
 
 int	display_usage(void)
 {
@@ -38,6 +39,7 @@ int		get_args(int ac, char **av, t_args *args)
 	  if (get_nbr(optarg, &p) || p <= 1)
 	    return (display_usage());
 	  g_pid = (pid_t)p;
+	  g_attach = TRUE;
 	}
       else
 	return (display_usage());
@@ -75,7 +77,7 @@ int		main(int ac, char **av, char **ae)
   args.ae = ae;
   if (get_args(ac, av, &args))
     return (1);
-  if (g_pid)
+  if (g_attach)
     return (attach_process(args.details));
   else
     return (run_process(&args));
