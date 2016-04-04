@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Mon Apr 04 12:58:06 2016 Bastien DHIVER
+** Last update Mon Apr 04 16:27:40 2016 Bastien DHIVER
 */
 
 #include <errno.h>
@@ -30,6 +30,7 @@ int		get_args(int ac, char **av, t_args *args)
 
   optind = 1;
   args->details = FALSE;
+  args->av = av + 1;
   while ((opt = getopt(ac, av, "sp:")) != -1)
     {
       if (opt == 's')
@@ -44,7 +45,8 @@ int		get_args(int ac, char **av, t_args *args)
       else
 	return (display_usage());
     }
-  args->av = av + 1;
+  if (args->details)
+    args->av += 1;
   return (0);
 }
 
