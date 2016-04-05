@@ -1,18 +1,17 @@
 /*
 ** strace.h for strace in /home/work/work/projects/PSU_2015_strace_doc/tests
-** 
+**
 ** Made by Bastien DHIVER
 ** Login   <dhiver_b@epitech.net>
-** 
+**
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Tue Apr 05 12:57:40 2016 Bastien DHIVER
+** Last update Tue Apr  5 14:43:11 2016 florian videau
 */
 
 #ifndef	STRACE_H_
 # define STRACE_H_
 
-# include <unistd.h>
-# include <stdio.h>
+# include <sys/types.h>
 # include <sys/user.h>
 
 # define USAGE			"Usage : ./strace [-s] [-p <pid>|<command>]\n"

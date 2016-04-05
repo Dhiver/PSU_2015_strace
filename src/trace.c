@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Tue Apr  5 14:32:47 2016 florian videau
+** Last update Tue Apr  5 14:38:34 2016 florian videau
 */
 
 #include <sys/ptrace.h>
@@ -13,7 +13,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
-#include <string.h>
+#include <strings.h>
 #include <errno.h>
 #include <sys/user.h>
 #include "strace.h"

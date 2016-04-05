@@ -1,18 +1,20 @@
 /*
 ** tp-strace-ex2.c for strace in /home/work/work/projects/PSU_2015_strace_doc/tests
-** 
+**
 ** Made by Bastien DHIVER
 ** Login   <dhiver_b@epitech.net>
-** 
+**
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Mon Apr 04 16:27:40 2016 Bastien DHIVER
+** Last update Tue Apr  5 14:37:53 2016 florian videau
 */
 
 #include <errno.h>
+#include <getopt.h>
 #include <sys/ptrace.h>
 #include <signal.h>
 #include <stdio.h>
-#include <string.h>
+#include <strings.h>
+#include <unistd.h>
 #include "strace.h"
 
 pid_t	g_pid = 0;
@@ -27,6 +29,7 @@ int		get_args(int ac, char **av, t_args *args)
 {
   int		opt;
   long int	p;
+  /* extern int optind; */
 
   optind = 1;
   args->details = FALSE;

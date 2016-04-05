@@ -1,16 +1,18 @@
 /*
 ** find_executable.c for strace in /home/work/work/projects/PSU_2015_strace_doc/PSU_2015_strace/src
-** 
+**
 ** Made by Bastien DHIVER
 ** Login   <dhiver_b@epitech.net>
-** 
+**
 ** Started on  Tue Apr 05 10:02:23 2016 Bastien DHIVER
-** Last update Tue Apr 05 13:41:22 2016 Bastien DHIVER
+** Last update Tue Apr  5 14:40:48 2016 florian videau
 */
 
-#include <stdlib.h>
-#include <string.h>
 #include <limits.h>
+#include <stdlib.h>
+#include <strings.h>
+#include <string.h>
+#include <unistd.h>
 #include "strace.h"
 
 char		*loop(char *name, char *path, size_t len)

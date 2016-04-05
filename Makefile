@@ -5,14 +5,14 @@
 ## Login   <dhiver_b@epitech.net>
 ## 
 ## Started on  Thu Mar 31 13:20:36 2016 Bastien DHIVER
-## Last update Tue Apr  5 14:32:24 2016 florian videau
+## Last update Tue Apr  5 14:42:32 2016 florian videau
 ##
 
 CC	= gcc
 
 RM	= rm -f
 
-CFLAGS	+= -W -Wall -Wextra -pedantic -std=c99
+CFLAGS	+= -W -Wall -Wextra -pedantic -std=c99 -D_GNU_SOURCE
 CFLAGS	+= -I$(INCF)
 
 NAME	= strace
