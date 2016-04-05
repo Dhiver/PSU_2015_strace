@@ -6,3 +6,4 @@ a.out
 strace
 segfault
 test.c
+main.c
