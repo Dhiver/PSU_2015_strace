@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sat Apr 02 23:45:45 2016 Bastien DHIVER
-** Last update Sun Apr 03 12:25:39 2016 Bastien DHIVER
+** Last update Mon Apr 04 18:08:20 2016 Bastien DHIVER
 */
 
 #ifndef SYSCALLS_H_
@@ -13,10 +13,9 @@
 
 # define QUOTE(stuff)	#stuff
 
-enum	my_types
+typedef enum		e_types
 {
   E_UNKN,
-  E_CHAR,
   E_INT,
   E_STR,
   E_ADDR,
@@ -27,10 +26,9 @@ enum	my_types
   E_STRSTR,
   E_LONG,
   E_END
-};
+}			t_types;
 
 # define UNKN		E_UNKN
-# define CHAR		E_CHAR
 # define INT		E_INT
 # define STR		E_STR
 # define ADDR		E_ADDR
@@ -42,16 +40,20 @@ enum	my_types
 # define LONG		E_LONG
 
 # define S_UNKN		QUOTE(0)
-# define S_CHAR		QUOTE(1)
-# define S_INT		QUOTE(2)
-# define S_STR		QUOTE(3)
-# define S_ADDR		QUOTE(4)
-# define S_STRUC	QUOTE(5)
-# define S_SIZE_T	QUOTE(6)
-# define S_INT_2	QUOTE(7)
-# define S_USI_L	QUOTE(8)
-# define S_STRSTR	QUOTE(9)
-# define S_LONG		QUOTE(10)
+# define S_INT		QUOTE(1)
+# define S_STR		QUOTE(2)
+# define S_ADDR		QUOTE(3)
+# define S_STRUC	QUOTE(4)
+# define S_SIZE_T	QUOTE(5)
+# define S_INT_2	QUOTE(6)
+# define S_USI_L	QUOTE(7)
+# define S_STRSTR	QUOTE(8)
+# define S_LONG		QUOTE(9)
+
+typedef struct		s_pr_type
+{
+  int			(*ft_p)(unsigned long long int);
+}			t_pr_type;
 
 typedef	struct		s_syscalls
 {
