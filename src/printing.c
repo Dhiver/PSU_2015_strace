@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sun Apr 03 12:36:29 2016 Bastien DHIVER
-** Last update Sun Apr 03 20:53:40 2016 Bastien DHIVER
+** Last update Tue Apr 05 17:04:46 2016 Bastien DHIVER
 */
 
 #include <sys/user.h>
@@ -49,6 +49,17 @@ void	display_ret(long_stuff ret, t_bool details)
 {
   (void)details;
   print("0x%llx\n", ret);
+}
+
+void	print_execve(t_args *args)
+{
+  int	written;
+
+  written = print("execve(0x%llx, 0x%llx, 0x%llx", (long_stuff)args->av[0],
+		  (long_stuff)args->av, (long_stuff)args->ae);
+  while (++written <= PRINT_SPACE)
+    print(" ");
+  print(") = 0x%llx\n", (long_stuff)0);
 }
 
 void		main_printing(t_regs *regs, t_bool details)

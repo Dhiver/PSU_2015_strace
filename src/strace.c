@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Tue Apr  5 16:34:24 2016 florian videau
+** Last update Tue Apr  5 17:50:28 2016 florian videau
 */
 
 #include <errno.h>
@@ -63,7 +63,7 @@ int	run_process(t_args *args)
   if ((g_pid = fork()) == 1)
     return (display_error(errno, 1));
   if (g_pid == 0)
-    return (be_the_child(args->av, args->ae));
+    return (be_the_child(args));
   else
     return (be_the_parent(args->details));
   return (0);
@@ -88,7 +88,6 @@ int		main(int ac, char **av, char **ae)
   args.ae = ae;
   if (get_args(ac, av, &args))
     return (1);
-  /* ptrace(PTRACE_SETOPTIONS, g_pid, NULL, PTRACE_O_TRACESYSGOOD); */
   if (g_attach)
     return (attach_process(args.details));
   else

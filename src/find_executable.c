@@ -5,7 +5,11 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Tue Apr 05 10:02:23 2016 Bastien DHIVER
+<<<<<<< HEAD
 ** Last update Tue Apr  5 15:52:38 2016 florian videau
+=======
+** Last update Tue Apr 05 17:13:39 2016 Bastien DHIVER
+>>>>>>> 8fba3dff9016350dd5e274f531155eba10457a54
 */
 
 #define  _GNU_SOURCE
@@ -15,6 +19,11 @@
 #include <string.h>
 #include <unistd.h>
 #include "strace.h"
+
+int	exist_and_executable(char *path)
+{
+  return ((access(path, F_OK) == 0 && access(path, X_OK) == 0) ? 1 : 0);
+}
 
 char		*loop(char *name, char *path, size_t len)
 {
@@ -35,7 +44,7 @@ char		*loop(char *name, char *path, size_t len)
       buf[len_p] = '/';
       memcpy(buf + len_p + 1, name, len);
       buf[len_p + len + 1] = '\0';
-      if (access(buf, F_OK) == 0 && access(buf, X_OK) == 0)
+      if (exist_and_executable(buf))
 	return (strdup(buf));
       if (*path++ != ':')
 	break;
@@ -50,7 +59,7 @@ char	*find_executable(char *name)
   if (!name || name[0] == '\0')
     return (NULL);
   if (strchr(name, '/'))
-    return (name);
+    return ((exist_and_executable(name)) ? name : 0);
   if ((path = getenv("PATH")) == NULL)
     path = DEFAULT_PATH;
   return (loop(name, path, strlen(name)));
