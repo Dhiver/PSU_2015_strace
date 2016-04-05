@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Tue Apr  5 14:37:53 2016 florian videau
+** Last update Tue Apr 05 15:12:46 2016 Bastien DHIVER
 */
 
 #include <errno.h>
@@ -13,6 +13,7 @@
 #include <sys/ptrace.h>
 #include <signal.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <strings.h>
 #include <unistd.h>
 #include "strace.h"
@@ -29,7 +30,6 @@ int		get_args(int ac, char **av, t_args *args)
 {
   int		opt;
   long int	p;
-  /* extern int optind; */
 
   optind = 1;
   args->details = FALSE;
@@ -55,12 +55,18 @@ int		get_args(int ac, char **av, t_args *args)
 
 int	run_process(t_args *args)
 {
+  char	*exec_name;
+
+  if ((exec_name = find_executable(args->av[0])) == NULL)
+    return (print("Can't find or execute %s\n", args->av[0]), 1);
+  args->av[0] = exec_name;
   if ((g_pid = fork()) == 1)
     return (display_error(errno, 1));
   if (g_pid == 0)
     return (be_the_child(args->av, args->ae));
   else
     return (be_the_parent(args->details));
+  return (0);
 }
 
 int	attach_process(t_bool details)
