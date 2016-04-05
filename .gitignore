@@ -4,3 +4,6 @@ a.out
 *.swp
 *.a
 strace
+segfault
+test.c
+main.c

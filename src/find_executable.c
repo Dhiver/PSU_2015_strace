@@ -5,11 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Tue Apr 05 10:02:23 2016 Bastien DHIVER
-<<<<<<< HEAD
-** Last update Tue Apr  5 15:52:38 2016 florian videau
-=======
-** Last update Tue Apr 05 17:13:39 2016 Bastien DHIVER
->>>>>>> 8fba3dff9016350dd5e274f531155eba10457a54
+** Last update Tue Apr 05 18:02:11 2016 Bastien DHIVER
 */
 
 #define  _GNU_SOURCE
