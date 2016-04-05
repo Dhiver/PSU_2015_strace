@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Tue Apr 05 15:07:36 2016 Bastien DHIVER
+** Last update Tue Apr 05 17:08:04 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
@@ -18,11 +18,12 @@
 #include <sys/user.h>
 #include "strace.h"
 
-int	be_the_child(char **av, char **ae)
+int	be_the_child(t_args *args)
 {
+  print_execve(args);
   if (ptrace(PTRACE_TRACEME, 0, NULL, NULL) == -1)
     return (display_error(errno, 1));
-  if (execve(av[0], av, ae) == -1)
+  if (execve(args->av[0], args->av, args->ae) == -1)
     return (display_error(errno, 1));
   return (1);
 }
@@ -45,6 +46,13 @@ int	be_the_parent(t_bool details)
 
   if (waitpid(g_pid, &status, 0) == -1)
     return (display_error(errno, 1));
+  if (g_attach == FALSE)
+    {
+      if (ptrace(PTRACE_SINGLESTEP, g_pid, NULL, NULL) == -1)
+	return (display_error(errno, 1));
+      if (waitpid(g_pid, &status, 0) == -1)
+	return (display_error(errno, 1));
+    }
   while (1)
     {
       if (!status || WIFEXITED(status))

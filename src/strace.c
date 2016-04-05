@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Tue Apr 05 15:12:46 2016 Bastien DHIVER
+** Last update Tue Apr 05 16:45:59 2016 Bastien DHIVER
 */
 
 #include <errno.h>
@@ -63,7 +63,7 @@ int	run_process(t_args *args)
   if ((g_pid = fork()) == 1)
     return (display_error(errno, 1));
   if (g_pid == 0)
-    return (be_the_child(args->av, args->ae));
+    return (be_the_child(args));
   else
     return (be_the_parent(args->details));
   return (0);

@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Tue Apr  5 14:43:11 2016 florian videau
+** Last update Tue Apr 05 16:47:39 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -50,7 +50,7 @@ int				get_nbr(char *, long int *);
 ** trace.c
 */
 int				be_the_parent(t_bool);
-int				be_the_child(char **, char **);
+int				be_the_child(t_args *);
 
 /*
 ** signals.c
@@ -61,6 +61,7 @@ void				get_sigint(int);
 ** printing.c
 */
 void				main_printing(t_regs *, t_bool);
+void				print_execve(t_args *);
 
 /*
 ** find_executable.c
