@@ -5,9 +5,10 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Tue Apr 05 10:02:23 2016 Bastien DHIVER
-** Last update Tue Apr  5 14:40:48 2016 florian videau
+** Last update Tue Apr  5 15:52:38 2016 florian videau
 */
 
+#define  _GNU_SOURCE
 #include <limits.h>
 #include <stdlib.h>
 #include <strings.h>

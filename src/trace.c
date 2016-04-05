@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Tue Apr  5 14:38:34 2016 florian videau
+** Last update Tue Apr  5 16:08:45 2016 florian videau
 */
 
 #include <sys/ptrace.h>
@@ -65,6 +65,7 @@ int	be_the_parent(t_bool details)
       	return (display_error(errno, 1));
       if (waitpid(g_pid, &status, 0) == -1)
       	return (display_error(errno, 1));
+      print("%d\n", status);
     }
   if (WSTOPSIG(status) == SIGSEGV)
     print("+++ killed by SIGSEGV +++\n");
