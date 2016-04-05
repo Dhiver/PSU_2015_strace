@@ -1,11 +1,11 @@
 /*
 ** trace.c for strace in /home/work/work/projects/PSU_2015_strace_doc/PSU_2015_strace/src
-** 
+**
 ** Made by Bastien DHIVER
 ** Login   <dhiver_b@epitech.net>
-** 
+**
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Sun Apr 03 15:40:40 2016 Bastien DHIVER
+** Last update Tue Apr  5 13:08:56 2016 florian videau
 */
 
 #include <sys/ptrace.h>
@@ -45,16 +45,26 @@ int	be_the_parent(t_bool details)
 
   if (waitpid(g_pid, &status, 0) == -1)
     return (display_error(errno, 1));
-  while (WIFSTOPPED(status))
+  while (1)
     {
+      if (!status || WIFEXITED(status))
+	break;
+      else if ((WIFSTOPPED(status) && WSTOPSIG(status) != SIGTRAP))
+	{
+	  if (WSTOPSIG(status) == SIGSEGV)
+	    print("--- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0x2a} ---\n");
+	  break;
+	}
       if (inspect_regs(g_pid, details))
-	return (1);
+      	return (1);
       if (ptrace(PTRACE_SINGLESTEP, g_pid, NULL, NULL) == -1)
-	return (display_error(errno, 1));
+      	return (display_error(errno, 1));
       if (waitpid(g_pid, &status, 0) == -1)
-	return (display_error(errno, 1));
+      	return (display_error(errno, 1));
     }
-  print("+++ exited with %d +++\n", WSTOPSIG(status));
+  if (WSTOPSIG(status) == SIGSEGV)
+    print("+++ killed by SIGSEGV +++\n");
+  else
+    print("+++ exited with %d +++\n", WSTOPSIG(status));
   return (0);
 }
-
