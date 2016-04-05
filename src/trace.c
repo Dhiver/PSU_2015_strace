@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Tue Apr  5 14:38:34 2016 florian videau
+** Last update Tue Apr 05 15:07:36 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
@@ -20,13 +20,9 @@
 
 int	be_the_child(char **av, char **ae)
 {
-  char	*exec_name;
-
   if (ptrace(PTRACE_TRACEME, 0, NULL, NULL) == -1)
     return (display_error(errno, 1));
-  if ((exec_name = find_executable(av[0])) == NULL)
-    return (print("Can't find or execute %s\n", av[0]), 1);
-  if (execve(exec_name, av, ae) == -1)
+  if (execve(av[0], av, ae) == -1)
     return (display_error(errno, 1));
   return (1);
 }
@@ -60,11 +56,11 @@ int	be_the_parent(t_bool details)
 	  break;
 	}
       if (inspect_regs(g_pid, details))
-      	return (1);
+	return (1);
       if (ptrace(PTRACE_SINGLESTEP, g_pid, NULL, NULL) == -1)
-      	return (display_error(errno, 1));
+	return (display_error(errno, 1));
       if (waitpid(g_pid, &status, 0) == -1)
-      	return (display_error(errno, 1));
+	return (display_error(errno, 1));
     }
   if (WSTOPSIG(status) == SIGSEGV)
     print("+++ killed by SIGSEGV +++\n");
