@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Tue Apr 05 15:12:46 2016 Bastien DHIVER
+** Last update Tue Apr  5 16:34:24 2016 florian videau
 */
 
 #include <errno.h>
@@ -88,6 +88,7 @@ int		main(int ac, char **av, char **ae)
   args.ae = ae;
   if (get_args(ac, av, &args))
     return (1);
+  /* ptrace(PTRACE_SETOPTIONS, g_pid, NULL, PTRACE_O_TRACESYSGOOD); */
   if (g_attach)
     return (attach_process(args.details));
   else
