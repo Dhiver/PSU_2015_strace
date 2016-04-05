@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Tue Apr  5 13:08:56 2016 florian videau
+** Last update Tue Apr  5 14:32:47 2016 florian videau
 */
 
 #include <sys/ptrace.h>
@@ -20,11 +20,15 @@
 
 int	be_the_child(char **av, char **ae)
 {
+  char	*exec_name;
+
   if (ptrace(PTRACE_TRACEME, 0, NULL, NULL) == -1)
     return (display_error(errno, 1));
-  if (execve(av[0], av, ae) == -1)
+  if ((exec_name = find_executable(av[0])) == NULL)
+    return (print("Can't find or execute %s\n", av[0]), 1);
+  if (execve(exec_name, av, ae) == -1)
     return (display_error(errno, 1));
-  return (0);
+  return (1);
 }
 
 int		inspect_regs(pid_t pid, t_bool details)

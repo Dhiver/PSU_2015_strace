@@ -5,15 +5,14 @@
 ## Login   <dhiver_b@epitech.net>
 ## 
 ## Started on  Thu Mar 31 13:20:36 2016 Bastien DHIVER
-## Last update Mon Apr  4 13:32:50 2016 florian videau
+## Last update Tue Apr  5 14:32:24 2016 florian videau
 ##
 
 CC	= gcc
 
 RM	= rm -f
 
-CFLAGS	+= -W -Wall -Wextra
-#-pedantic
+CFLAGS	+= -W -Wall -Wextra -pedantic -std=c99
 CFLAGS	+= -I$(INCF)
 
 NAME	= strace
@@ -22,11 +21,12 @@ SRCF	= src/
 
 INCF	= include/
 
-SRCS	= $(SRCF)strace.c	\
-	  $(SRCF)utils.c	\
-	  $(SRCF)trace.c	\
-	  $(SRCF)signals.c	\
-	  $(SRCF)printing.c
+SRCS	= $(SRCF)strace.c		\
+	  $(SRCF)utils.c		\
+	  $(SRCF)trace.c		\
+	  $(SRCF)signals.c		\
+	  $(SRCF)printing.c		\
+	  $(SRCF)find_executable.c
 
 OBJS	= $(SRCS:.c=.o)
 

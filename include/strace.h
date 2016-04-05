@@ -5,17 +5,19 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Mon Apr 04 13:01:57 2016 Bastien DHIVER
+** Last update Tue Apr 05 12:57:40 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
 # define STRACE_H_
 
 # include <unistd.h>
+# include <stdio.h>
 # include <sys/user.h>
 
 # define USAGE			"Usage : ./strace [-s] [-p <pid>|<command>]\n"
 # define PRINT_SPACE		(39)
+# define DEFAULT_PATH		"/usr/local/bin:/usr/bin:/bin"
 
 # define print(...)		fprintf (stderr, __VA_ARGS__)
 
@@ -60,5 +62,11 @@ void				get_sigint(int);
 ** printing.c
 */
 void				main_printing(t_regs *, t_bool);
+
+/*
+** find_executable.c
+*/
+char				*find_executable(char *);
+
 
 #endif /* !STRACE_H_ */
