@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Tue Apr  5 17:50:09 2016 florian videau
+** Last update Tue Apr  5 17:54:53 2016 florian videau
 */
 
 #include <sys/ptrace.h>
@@ -40,6 +40,26 @@ int		inspect_regs(pid_t pid, t_bool details)
   return (0);
 }
 
+int	aff_end(int status)
+{
+  if (WIFEXITED(status))
+    {
+      if (!(WSTOPSIG(status) == SIGSEGV))
+	print("+++ exited with %d +++\n", WSTOPSIG(status));
+      return 0;
+    }
+  else if ((WIFSTOPPED(status) && WSTOPSIG(status) != SIGTRAP))
+    {
+      if (WSTOPSIG(status) == SIGSEGV)
+	{
+	  print("--- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0x2a} ---\n");
+	  print("+++ killed by SIGSEGV +++\n");
+	}
+      return 0;
+    }
+  return 1;
+}
+
 int	be_the_parent(t_bool details)
 {
   int	status;
@@ -55,14 +75,8 @@ int	be_the_parent(t_bool details)
     }
   while (1)
     {
-      if (!status || WIFEXITED(status))
-	break;
-      else if ((WIFSTOPPED(status) && WSTOPSIG(status) != SIGTRAP))
-	{
-	  if (WSTOPSIG(status) == SIGSEGV)
-	    print("--- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0x2a} ---\n");
-	  break;
-	}
+      if (!aff_end(status))
+	return 0;
       if (inspect_regs(g_pid, details))
 	return (1);
       if (ptrace(PTRACE_SINGLESTEP, g_pid, NULL, NULL) == -1)
@@ -70,9 +84,5 @@ int	be_the_parent(t_bool details)
       if (waitpid(g_pid, &status, 0) == -1)
       	return (display_error(errno, 1));
     }
-  if (WSTOPSIG(status) == SIGSEGV)
-    print("+++ killed by SIGSEGV +++\n");
-  else
-    print("+++ exited with %d +++\n", WSTOPSIG(status));
   return (0);
 }
