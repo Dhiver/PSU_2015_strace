@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Tue Apr  5 18:21:02 2016 florian videau
+** Last update Wed Apr 06 22:58:07 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
@@ -82,7 +82,7 @@ int	be_the_parent(t_bool details)
       if (ptrace(PTRACE_SINGLESTEP, g_pid, NULL, NULL) == -1)
 	return (display_error(errno, 1));
       if (waitpid(g_pid, &status, 0) == -1)
-      	return (display_error(errno, 1));
+	return (display_error(errno, 1));
     }
   return (0);
 }

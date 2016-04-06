@@ -1,11 +1,10 @@
-##
-## Makefile for strace in /home/work/work/projects/PSU_2015_strace_doc/PSU_2015_strace
+## ## Makefile for strace in /home/work/work/projects/PSU_2015_strace_doc/PSU_2015_strace
 ## 
 ## Made by Bastien DHIVER
 ## Login   <dhiver_b@epitech.net>
 ## 
 ## Started on  Thu Mar 31 13:20:36 2016 Bastien DHIVER
-## Last update Tue Apr  5 15:52:51 2016 florian videau
+## Last update Wed Apr 06 23:39:41 2016 Bastien DHIVER
 ##
 
 CC	= gcc
@@ -26,7 +25,9 @@ SRCS	= $(SRCF)strace.c		\
 	  $(SRCF)trace.c		\
 	  $(SRCF)signals.c		\
 	  $(SRCF)printing.c		\
-	  $(SRCF)find_executable.c
+	  $(SRCF)find_executable.c	\
+	  $(SRCF)print_fct.c		\
+	  $(SRCF)print_fct_again.c
 
 OBJS	= $(SRCS:.c=.o)
 
