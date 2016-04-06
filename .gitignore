@@ -7,3 +7,4 @@ strace
 segfault
 test.c
 main.c
+a.out_asm
