@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Tue Apr  5 18:21:02 2016 florian videau
+** Last update Wed Apr  6 15:13:02 2016 florian videau
 */
 
 #include <sys/ptrace.h>
@@ -52,7 +52,7 @@ int	aff_end(int status)
     {
       if (WSTOPSIG(status) == SIGSEGV)
 	{
-	  print("--- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0x2a} ---\n");
+	  print("--- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0x??} ---\n");
 	  print("+++ killed by SIGSEGV +++\n");
 	  return (0);
 	}
@@ -84,5 +84,4 @@ int	be_the_parent(t_bool details)
       if (waitpid(g_pid, &status, 0) == -1)
       	return (display_error(errno, 1));
     }
-  return (0);
 }
