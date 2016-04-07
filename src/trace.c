@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Thu Apr  7 13:43:06 2016 florian videau
+** Last update Thu Apr  7 13:53:26 2016 florian videau
 */
 
 #define _GNU_SOURCE
@@ -65,7 +65,7 @@ int		aff_end(int status)
 		 (info.si_signo == SIGILL ? si_code_ill[info.si_code] :
 		  (info.si_signo == SIGFPE ? si_code_fpe[info.si_code] :
 		   (info.si_signo == SIGSEGV ? si_code_segv[info.si_code] :
-		    (info.si_signo == SIGBUS ? si_code_BUS[info.si_code] :
+		    (info.si_signo == SIGBUS ? si_code_bus[info.si_code] :
 		     (info.si_signo == SIGTRAP ? si_code_trap[info.si_code] :
 		      (info.si_signo == SIGCLD ? si_code_cld[info.si_code] :
 		       (info.si_signo == SIGPOLL ? si_code_poll[info.si_code] :
