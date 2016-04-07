@@ -5,17 +5,20 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Wed Apr 06 23:41:53 2016 Bastien DHIVER
+** Last update Thu Apr  7 13:43:06 2016 florian videau
 */
 
-#include <sys/ptrace.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#define _GNU_SOURCE
+#include <errno.h>
+#include <signal.h>
 #include <stdio.h>
 #include <strings.h>
-#include <errno.h>
+#include <sys/ptrace.h>
+#include <sys/types.h>
 #include <sys/user.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include "my_signal.h"
 #include "strace.h"
 
 int	be_the_child(t_args *args)
@@ -40,23 +43,49 @@ int		inspect_regs(pid_t pid, t_bool details)
   return (0);
 }
 
-int	aff_end(int status)
+int		aff_end(int status)
 {
+  siginfo_t	info;
+
   if (WIFEXITED(status))
     {
       if (!(WSTOPSIG(status) == SIGSEGV))
 	print("+++ exited with %d +++\n", WSTOPSIG(status));
       return (0);
     }
-  else if ((WIFSTOPPED(status) && WSTOPSIG(status) != SIGTRAP))
+  else if (WIFSTOPPED(status))
     {
-      if (WSTOPSIG(status) == SIGSEGV)
+      ptrace(PTRACE_GETSIGINFO, g_pid, NULL, &info);
+      if (info.si_signo != SIGTRAP && info.si_signo != SIGSTOP)
 	{
-	  print("--- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0x??} ---\n");
-	  print("+++ killed by SIGSEGV +++\n");
-	  return (0);
+	  print("--- %s {si_signo=%s", si_signo[info.si_signo],
+		si_signo[info.si_signo]);
+	  print(", si_code=%s,", info.si_code==128?"SI_KERNEL":
+		(info.si_code < 0 ? si_code[-info.si_code]:
+		 (info.si_signo == SIGILL ? si_code_ill[info.si_code] :
+		  (info.si_signo == SIGFPE ? si_code_fpe[info.si_code] :
+		   (info.si_signo == SIGSEGV ? si_code_segv[info.si_code] :
+		    (info.si_signo == SIGBUS ? si_code_BUS[info.si_code] :
+		     (info.si_signo == SIGTRAP ? si_code_trap[info.si_code] :
+		      (info.si_signo == SIGCLD ? si_code_cld[info.si_code] :
+		       (info.si_signo == SIGPOLL ? si_code_poll[info.si_code] :
+			(""))))))))));
+  	  /* print ("si_addr=0x??} ---\n"); */
+  	  /* print("+++ killed by SIGSEGV +++\n"); */
+  	  return (0);
+
 	}
     }
+  /* else if ((WIFSTOPPED(status) && WSTOPSIG(status) != SIGTRAP))*/
+  /*   { */
+  /*     if (WSTOPSIG(status) == SIGSEGV) */
+  /* 	{ */
+  /* 	  print("--- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR,"); */
+  /* 	  print ("si_addr=0x??} ---\n"); */
+  /* 	  print("+++ killed by SIGSEGV +++\n"); */
+  /* 	  return (0); */
+  /* 	} */
+  /*   } */
   return (1);
 }
 
