@@ -1,11 +1,11 @@
 /*
 ** syscalls.h for strace in /home/work/work/projects/PSU_2015_strace_doc/PSU_2015_strace/include
-** 
+**
 ** Made by Bastien DHIVER
 ** Login   <dhiver_b@epitech.net>
-** 
+**
 ** Started on  Sat Apr 02 23:45:45 2016 Bastien DHIVER
-** Last update Thu Apr 07 13:05:35 2016 Bastien DHIVER
+** Last update Thu Apr  7 14:39:50 2016 florian videau
 */
 
 #ifndef SYSCALLS_H_
