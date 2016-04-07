@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Sat Apr 02 23:45:45 2016 Bastien DHIVER
-** Last update Thu Apr  7 14:39:50 2016 florian videau
+** Last update Thu Apr 07 17:22:31 2016 Bastien DHIVER
 */
 
 #ifndef SYSCALLS_H_
@@ -57,7 +57,7 @@ typedef	struct		s_syscalls
   char			*args;
 }			t_syscalls;
 
-const t_syscalls	g_syscalls[] =
+static const t_syscalls	g_syscalls[] =
 	{{"read", INT, S_INT S_STR S_SIZE_T},
 	{"write", INT, S_INT S_STR S_SIZE_T},
 	{"open", INT, S_STR S_INT},

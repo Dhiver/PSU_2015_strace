@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Thu Apr 07 10:45:26 2016 Bastien DHIVER
+** Last update Thu Apr 07 17:02:05 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -93,5 +93,11 @@ int				print_long(long_stuff, t_bool, t_bool);
 ** find_executable.c
 */
 char				*find_executable(char *);
+
+/*
+** init_tabs.c
+*/
+void				init_regs_tab(long_stuff *, t_regs *);
+void				init_pr_type(t_pr_type *);
 
 #endif /* !STRACE_H_ */
