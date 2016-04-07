@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sun Apr 03 12:36:29 2016 Bastien DHIVER
-** Last update Wed Apr 06 22:41:01 2016 Bastien DHIVER
+** Last update Thu Apr 07 13:04:30 2016 Bastien DHIVER
 */
 
 #include <sys/user.h>
@@ -40,14 +40,15 @@ void	init_pr_type(t_pr_type *tab)
   tab[E_END].ft_p = NULL;
 }
 
-int		print_arg(t_types type, long_stuff value, t_bool details)
+int		print_arg(t_types type, long_stuff value, t_bool details,
+			  t_bool is_child)
 {
   t_pr_type	tab[E_END + 1];
 
   if (!details)
     type = E_ADDR;
   init_pr_type(tab);
-  return (tab[type].ft_p(value, details));
+  return (tab[type].ft_p(value, details, is_child));
 }
 
 void	print_execve(t_args *args)
@@ -56,17 +57,24 @@ void	print_execve(t_args *args)
 
   written = 0;
   written += print("execve(");
-  written += print_arg(E_STR, (long_stuff)args->av[0], args->details);
+  written += print_arg(E_STR, (long_stuff)args->av[0], args->details, FALSE);
   written += print(", ");
-  written += print_arg(E_STRSTR, (long_stuff)args->av, args->details);
+  written += print_arg(E_STRSTR, (long_stuff)args->av, args->details, FALSE);
   written += print(", ");
-  written += print_arg(E_STRSTR, (long_stuff)args->ae, args->details);
+  written += print_arg(E_STRSTR, (long_stuff)args->ae, args->details, FALSE);
   written += print(")");
   while (++written <= PRINT_SPACE)
     print(" ");
   print(" = ");
-  print_arg(E_INT, (long_stuff)0, args->details);
+  print_arg(E_INT, (long_stuff)0, args->details, FALSE);
   print("\n");
+}
+
+void	print_ret(t_types type, long_stuff value, t_bool details)
+{
+  if (type == E_UNKN && print("?"))
+    return ;
+  print_arg(type, value, details, TRUE);
 }
 
 void		main_printing(t_regs *regs, t_bool details)
@@ -84,7 +92,7 @@ void		main_printing(t_regs *regs, t_bool details)
   while (++i < during)
     {
       print_cur -= print_arg(g_syscalls[regs->orig_rax].args[i] - '0',
-			     r[i], details);
+			     r[i], details, TRUE);
       if (i != during - 1)
 	print_cur -= print(", ");
     }
@@ -92,8 +100,6 @@ void		main_printing(t_regs *regs, t_bool details)
   while (--print_cur > 0)
     print(" ");
   print(" = ");
-  if (g_syscalls[regs->orig_rax].ret == E_UNKN)
-    print("?");
-  print_arg(g_syscalls[regs->orig_rax].ret, regs->rax, details);
+  print_ret(g_syscalls[regs->orig_rax].ret, regs->rax, details);
   print("\n");
 }

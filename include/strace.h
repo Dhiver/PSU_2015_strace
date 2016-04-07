@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Wed Apr 06 22:56:15 2016 Bastien DHIVER
+** Last update Thu Apr 07 10:45:26 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -44,7 +44,7 @@ typedef	struct			s_args
 
 typedef struct			s_pr_type
 {
-  int				(*ft_p)(long_stuff, t_bool);
+  int				(*ft_p)(long_stuff, t_bool, t_bool);
 }				t_pr_type;
 
 
@@ -74,20 +74,20 @@ void				print_execve(t_args *);
 /*
 ** print_fct.c
 */
-int				print_unkn(long_stuff, t_bool);
-int				print_int(long_stuff, t_bool);
-int				print_str(long_stuff, t_bool);
-int				print_addr(long_stuff, t_bool);
-int				print_struc(long_stuff, t_bool);
+int				print_unkn(long_stuff, t_bool, t_bool);
+int				print_int(long_stuff, t_bool, t_bool);
+int				print_str(long_stuff, t_bool, t_bool);
+int				print_addr(long_stuff, t_bool, t_bool);
+int				print_struc(long_stuff, t_bool, t_bool);
 
 /*
 ** print_fct_again.c
 */
-int				print_size_t(long_stuff, t_bool);
-int				print_two_int(long_stuff, t_bool);
-int				print_usi_l(long_stuff, t_bool);
-int				print_strstr(long_stuff, t_bool);
-int				print_long(long_stuff, t_bool);
+int				print_size_t(long_stuff, t_bool, t_bool);
+int				print_two_int(long_stuff, t_bool, t_bool);
+int				print_usi_l(long_stuff, t_bool, t_bool);
+int				print_strstr(long_stuff, t_bool, t_bool);
+int				print_long(long_stuff, t_bool, t_bool);
 
 /*
 ** find_executable.c
