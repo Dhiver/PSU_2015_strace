@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sun Apr 03 12:36:29 2016 Bastien DHIVER
-** Last update Thu Apr 07 13:04:30 2016 Bastien DHIVER
+** Last update Thu Apr 07 13:48:22 2016 Bastien DHIVER
 */
 
 #include <sys/user.h>
@@ -13,6 +13,7 @@
 #include <string.h>
 #include "strace.h"
 #include "syscalls.h"
+#include "errnoent.h"
 
 void	init_regs_tab(long_stuff *r, t_regs *regs)
 {

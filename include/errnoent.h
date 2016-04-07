@@ -1,11 +1,11 @@
 /*
-** errno.h for strace in /home/work/work/projects/PSU_2015_strace_doc/PSU_2015_strace/include
+** errnoent.h for strace in /home/work/work/projects/PSU_2015_strace_doc/PSU_2015_strace/include
 ** 
 ** Made by Bastien DHIVER
 ** Login   <dhiver_b@epitech.net>
 ** 
-** Started on  Thu Apr 07 13:25:18 2016 Bastien DHIVER
-** Last update Thu Apr 07 13:27:10 2016 Bastien DHIVER
+** Started on  Thu Apr 07 13:41:13 2016 Bastien DHIVER
+** Last update Thu Apr 07 13:41:15 2016 Bastien DHIVER
 */
 
 #ifndef ERRNOENT_H_
