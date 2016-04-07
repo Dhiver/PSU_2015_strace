@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Thu Apr 07 17:02:52 2016 Bastien DHIVER
+** Last update Thu Apr 07 23:15:35 2016 Bastien DHIVER
 */
 
 #define _GNU_SOURCE
@@ -18,7 +18,7 @@
 #include <sys/user.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include "my_signal.h"
+#include "signals.h"
 #include "strace.h"
 
 int	be_the_child(t_args *args)
@@ -43,13 +43,60 @@ int		inspect_regs(pid_t pid, t_bool details)
   return (0);
 }
 
+void	print_sig_spec(int signo, int code)
+{
+  int	i;
+  int	j;
+
+  i = -1;
+  j = -1;
+  while (g_sig_groups[++i].idx != -1)
+    if (g_sig_groups[i].idx == signo)
+      while (g_sig_groups[i].group_name[++j].nbr != -1)
+	if (g_sig_groups[i].group_name[j].nbr == code)
+	  {
+	    print("si_code=%s, ", g_sig_groups[i].group_name[j].name);
+	    return ;
+	  }
+}
+
+void	aff_signal(siginfo_t *info)
+{
+  int	i;
+
+  i = -1;
+  while (g_signals[++i].nbr != -1)
+    if (g_signals[i].nbr == info->si_signo)
+      print("%s {si_signo=%s, ", g_signals[i].name, g_signals[i].name);
+  i = -1;
+  if (info->si_code == SI_KERNEL)
+    print("si_code=SI_KERNEL, ");
+  else if (info->si_code <= 0)
+    {
+      while (g_si_code[++i].nbr != -1)
+	if (g_si_code[i].nbr == info->si_code)
+	  print("si_code=%s", g_si_code[i].name);
+    }
+  else
+    print_sig_spec(info->si_signo, info->si_code);
+}
+
 int		aff_end(int status)
 {
+  siginfo_t	info;
+
   if (WIFEXITED(status))
     {
       if (!(WSTOPSIG(status) == SIGSEGV))
 	print("+++ exited with %d +++\n", WSTOPSIG(status));
       return (0);
+    }
+  else if (WIFSTOPPED(status))
+    {
+      if (ptrace(PTRACE_GETSIGINFO, g_pid, NULL, &info))
+	return (display_error(errno, 1));
+      if (info.si_signo != SIGTRAP && info.si_signo != SIGSTOP)
+	return (print("--- "), aff_signal(&info), print(" +++\n"), 0);
     }
   return (1);
 }
@@ -70,7 +117,7 @@ int	be_the_parent(t_bool details)
   while (1)
     {
       if (!aff_end(status))
-	return 0;
+	return (0);
       if (inspect_regs(g_pid, details))
 	return (1);
       if (ptrace(PTRACE_SINGLESTEP, g_pid, NULL, NULL) == -1)

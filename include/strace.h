@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Thu Apr 07 17:02:05 2016 Bastien DHIVER
+** Last update Thu Apr 07 23:19:50 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -46,7 +46,6 @@ typedef struct			s_pr_type
 {
   int				(*ft_p)(long_stuff, t_bool, t_bool);
 }				t_pr_type;
-
 
 /*
 ** utils.c
