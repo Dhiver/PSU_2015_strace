@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Thu Apr 07 13:41:13 2016 Bastien DHIVER
-** Last update Thu Apr 07 13:41:15 2016 Bastien DHIVER
+** Last update Thu Apr 07 16:16:57 2016 Bastien DHIVER
 */
 
 #ifndef ERRNOENT_H_
@@ -165,7 +165,8 @@ const t_errnoent	g_errnoent[] =
     {526, "ESERVERFAULT"},
     {527, "EBADTYPE"},
     {528, "EJUKEBOX"},
-    {529, "EIOCBQUEUED"}
+    {529, "EIOCBQUEUED"},
+    {-1, ""}
 };
 
 #endif /* !ERRNOENT_H_ */

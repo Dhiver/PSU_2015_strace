@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sun Apr 03 12:36:29 2016 Bastien DHIVER
-** Last update Thu Apr 07 13:48:22 2016 Bastien DHIVER
+** Last update Thu Apr 07 16:38:32 2016 Bastien DHIVER
 */
 
 #include <sys/user.h>
@@ -73,9 +73,22 @@ void	print_execve(t_args *args)
 
 void	print_ret(t_types type, long_stuff value, t_bool details)
 {
+  int	i;
+
   if (type == E_UNKN && print("?"))
     return ;
-  print_arg(type, value, details, TRUE);
+  i = -1;
+  if (details == FALSE)
+    print_arg(type, value, details, TRUE);
+  else
+    {
+      if ((long)value >= 0)
+	print_arg(type, value, details, TRUE);
+      else
+	while (g_errnoent[++i].nbr != -1)
+	  if (-(long)value == g_errnoent[i].nbr)
+	    print("-1 %s (%s)", g_errnoent[i].name, strerror(-(long)value));
+    }
 }
 
 void		main_printing(t_regs *regs, t_bool details)
