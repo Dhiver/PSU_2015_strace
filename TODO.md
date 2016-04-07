@@ -5,4 +5,5 @@
 	- [ ] Do not freez the attached program
 - [ ] Determine macros names used in functions params (with binary or)
 - [/] -s (Bastien)
-	- [ ] Handle errno
+	- [x] Handle errno
+	- [ ] Improve read() and write() arguments strings value
