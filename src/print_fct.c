@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Tue Apr 05 21:11:06 2016 Bastien DHIVER
-** Last update Thu Apr 07 11:09:20 2016 Bastien DHIVER
+** Last update Thu Apr 07 23:39:02 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
@@ -66,5 +66,8 @@ int	print_struc(long_stuff value, t_bool details, t_bool is_child)
 {
   (void)details;
   (void)is_child;
-  return (print("0x%llx", value));
+  if (!details)
+    return (print("0x%llx", value));
+  else
+    return (print("{0x%llx}", value));
 }
