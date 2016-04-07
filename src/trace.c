@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Thu Apr  7 02:29:05 2016 florian videau
+** Last update Thu Apr  7 10:31:50 2016 florian videau
 */
 
 #define _GNU_SOURCE
@@ -58,8 +58,18 @@ int		aff_end(int status)
       ptrace(PTRACE_GETSIGINFO, g_pid, NULL, &info);
       if (info.si_signo != SIGTRAP && info.si_signo != SIGSTOP)
 	{
-	  print("--- %s {si_signo=%s", si_signo[info.si_signo], si_signo[info.si_signo]);
-	  	/* , si_code=SEGV_MAPERR,"); */
+	  print("--- %s {si_signo=%s", si_signo[info.si_signo],
+		si_signo[info.si_signo]);
+	  print(", si_code=%s,", info.si_code==128?"SI_KERNEL":
+		(info.si_code < 0 ? si_code[-info.si_code]:
+		 (info.si_signo == SIGILL ? si_code_ill[info.si_code] :
+		  (info.si_signo == SIGFPE ? si_code_fpe[info.si_code] :
+		   (info.si_signo == SIGSEGV ? si_code_segv[info.si_code] :
+		    (info.si_signo == SIGBUS ? si_code_BUS[info.si_code] :
+		     (info.si_signo == SIGTRAP ? si_code_trap[info.si_code] :
+		      (info.si_signo == SIGCLD ? si_code_cld[info.si_code] :
+		       (info.si_signo == SIGPOLL ? si_code_poll[info.si_code] :
+			(""))))))))));
   	  /* print ("si_addr=0x??} ---\n"); */
   	  /* print("+++ killed by SIGSEGV +++\n"); */
   	  return (0);
