@@ -5,18 +5,20 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Tue Apr 05 16:47:39 2016 Bastien DHIVER
+** Last update Thu Apr 07 10:45:26 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
 # define STRACE_H_
 
+# include <stdio.h>
 # include <sys/types.h>
 # include <sys/user.h>
 
 # define USAGE			"Usage : ./strace [-s] [-p <pid>|<command>]\n"
 # define PRINT_SPACE		(39)
 # define DEFAULT_PATH		"/usr/local/bin:/usr/bin:/bin"
+# define MAX_PRINT_CHAR		(37)
 
 # define print(...)		fprintf (stderr, __VA_ARGS__)
 
@@ -39,6 +41,12 @@ typedef	struct			s_args
   char				**av;
   char				**ae;
 }				t_args;
+
+typedef struct			s_pr_type
+{
+  int				(*ft_p)(long_stuff, t_bool, t_bool);
+}				t_pr_type;
+
 
 /*
 ** utils.c
@@ -64,9 +72,26 @@ void				main_printing(t_regs *, t_bool);
 void				print_execve(t_args *);
 
 /*
+** print_fct.c
+*/
+int				print_unkn(long_stuff, t_bool, t_bool);
+int				print_int(long_stuff, t_bool, t_bool);
+int				print_str(long_stuff, t_bool, t_bool);
+int				print_addr(long_stuff, t_bool, t_bool);
+int				print_struc(long_stuff, t_bool, t_bool);
+
+/*
+** print_fct_again.c
+*/
+int				print_size_t(long_stuff, t_bool, t_bool);
+int				print_two_int(long_stuff, t_bool, t_bool);
+int				print_usi_l(long_stuff, t_bool, t_bool);
+int				print_strstr(long_stuff, t_bool, t_bool);
+int				print_long(long_stuff, t_bool, t_bool);
+
+/*
 ** find_executable.c
 */
 char				*find_executable(char *);
-
 
 #endif /* !STRACE_H_ */

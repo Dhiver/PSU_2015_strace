@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Thu Apr  7 10:31:50 2016 florian videau
+** Last update Thu Apr  7 13:43:06 2016 florian videau
 */
 
 #define _GNU_SOURCE
@@ -111,6 +111,6 @@ int	be_the_parent(t_bool details)
       if (ptrace(PTRACE_SINGLESTEP, g_pid, NULL, NULL) == -1)
 	return (display_error(errno, 1));
       if (waitpid(g_pid, &status, 0) == -1)
-      	return (display_error(errno, 1));
+	return (display_error(errno, 1));
     }
 }

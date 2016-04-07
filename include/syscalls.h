@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sat Apr 02 23:45:45 2016 Bastien DHIVER
-** Last update Mon Apr 04 18:08:20 2016 Bastien DHIVER
+** Last update Thu Apr 07 13:05:35 2016 Bastien DHIVER
 */
 
 #ifndef SYSCALLS_H_
@@ -50,11 +50,6 @@ typedef enum		e_types
 # define S_STRSTR	QUOTE(8)
 # define S_LONG		QUOTE(9)
 
-typedef struct		s_pr_type
-{
-  int			(*ft_p)(unsigned long long int);
-}			t_pr_type;
-
 typedef	struct		s_syscalls
 {
   char			*name;
@@ -63,8 +58,8 @@ typedef	struct		s_syscalls
 }			t_syscalls;
 
 const t_syscalls	g_syscalls[] =
-	{{"read", SIZE_T, S_INT S_ADDR S_SIZE_T},
-	{"write", INT, S_INT S_ADDR S_SIZE_T},
+	{{"read", INT, S_INT S_STR S_SIZE_T},
+	{"write", INT, S_INT S_STR S_SIZE_T},
 	{"open", INT, S_STR S_INT},
 	{"close", INT, S_INT},
 	{"stat", INT, S_STR S_STRUC},
@@ -75,7 +70,7 @@ const t_syscalls	g_syscalls[] =
 	{"mmap", ADDR, S_ADDR S_SIZE_T S_INT S_INT S_INT S_INT},
 	{"mprotect", INT, S_ADDR S_SIZE_T S_INT},
 	{"munmap", INT, S_ADDR S_SIZE_T},
-	{"brk", INT, S_ADDR},
+	{"brk", ADDR, S_INT},
 	{"rt_sigaction", INT, S_INT S_STRUC S_STRUC},
 	{"rt_sigprocmask", INT, S_INT S_ADDR S_ADDR},
 	{"rt_sigreturn", INT, S_UNKN},
