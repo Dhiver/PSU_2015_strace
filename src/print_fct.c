@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Tue Apr 05 21:11:06 2016 Bastien DHIVER
-** Last update Thu Apr 07 23:39:02 2016 Bastien DHIVER
+** Last update Sun Apr 10 16:00:53 2016 Bastien DHIVER
 */
 
 #include <sys/ptrace.h>
@@ -58,7 +58,7 @@ int	print_addr(long_stuff value, t_bool details, t_bool is_child)
 {
   (void)is_child;
   if (details && value == 0)
-    return (print("0"));
+    return (print("NULL"));
   return (print("0x%llx", value));
 }
 

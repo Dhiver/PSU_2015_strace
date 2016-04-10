@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Sat Apr 02 23:45:45 2016 Bastien DHIVER
-** Last update Sun Apr 10 15:06:54 2016 Bastien DHIVER
+** Last update Sun Apr 10 15:59:36 2016 Bastien DHIVER
 */
 
 #ifndef SYSCALLS_H_
@@ -70,7 +70,7 @@ static const t_syscalls	g_syscalls[] =
 	{"mmap", ADDR, S_ADDR S_SIZE_T S_INT S_INT S_INT S_INT},
 	{"mprotect", INT, S_ADDR S_SIZE_T S_INT},
 	{"munmap", INT, S_ADDR S_SIZE_T},
-	{"brk", ADDR, S_INT},
+	{"brk", ADDR, S_ADDR},
 	{"rt_sigaction", INT, S_INT S_STRUC S_STRUC},
 	{"rt_sigprocmask", INT, S_INT S_ADDR S_ADDR},
 	{"rt_sigreturn", INT, S_UNKN},
