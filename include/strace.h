@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Sun Apr 10 21:18:30 2016 Bastien DHIVER
+** Last update Sun Apr 10 21:40:10 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -80,6 +80,7 @@ void				get_sigint(int);
 */
 void				main_printing(t_call *);
 void				print_execve(t_args *, t_call *);
+int				print_arg(t_types, long_stuff, t_call *);
 
 /*
 ** print_fct.c

@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sun Apr 03 12:36:29 2016 Bastien DHIVER
-** Last update Sun Apr 10 20:20:24 2016 Bastien DHIVER
+** Last update Sun Apr 10 21:40:17 2016 Bastien DHIVER
 */
 
 #include <sys/user.h>
@@ -19,25 +19,6 @@ int		print_arg(t_types type, long_stuff value, t_call *call)
   if (!call->details)
     type = E_ADDR;
   return (call->pr_type[type].ft_p(value, call));
-}
-
-void	print_execve(t_args *args, t_call *call)
-{
-  int	written;
-
-  written = 0;
-  written += print("execve(");
-  written += print_arg(E_STR, (long_stuff)args->av[0], call);
-  written += print(", ");
-  written += print_arg(E_STRSTR, (long_stuff)args->av, call);
-  written += print(", ");
-  written += print_arg(E_STRSTR, (long_stuff)args->ae, call);
-  written += print(")");
-  while (++written <= PRINT_SPACE)
-    print(" ");
-  print(" = ");
-  print_arg(E_INT, (long_stuff)0, call);
-  print("\n");
 }
 
 void		print_ret(t_call *call)
