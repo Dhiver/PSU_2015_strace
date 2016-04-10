@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Sat Apr 02 23:45:45 2016 Bastien DHIVER
-** Last update Thu Apr 07 17:22:31 2016 Bastien DHIVER
+** Last update Sun Apr 10 15:06:54 2016 Bastien DHIVER
 */
 
 #ifndef SYSCALLS_H_
@@ -74,7 +74,7 @@ static const t_syscalls	g_syscalls[] =
 	{"rt_sigaction", INT, S_INT S_STRUC S_STRUC},
 	{"rt_sigprocmask", INT, S_INT S_ADDR S_ADDR},
 	{"rt_sigreturn", INT, S_UNKN},
-	{"ioctl", INT, S_INT S_USI_L S_UNKN},
+	{"ioctl", INT, S_INT S_USI_L S_STRUC},
 	{"pread64", INT, S_INT S_ADDR S_SIZE_T S_INT},
 	{"pwrite64", INT, S_INT S_ADDR S_SIZE_T S_INT},
 	{"readv", INT, S_INT S_STRUC S_INT},
@@ -384,7 +384,7 @@ static const t_syscalls	g_syscalls[] =
 	{"userfaultfd", UNKN, ""},
 	{"membarrier", INT, S_INT S_INT},
 	{"mlock2", INT, S_STR S_SIZE_T S_INT},
-	{"", UNKN, ""}
+	{"", UNKN, S_UNKN}
 };
 
 #endif /* !SYSCALLS_H_*/

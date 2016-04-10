@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 ** 
 ** Started on  Sun Apr 03 12:36:29 2016 Bastien DHIVER
-** Last update Thu Apr 07 17:25:59 2016 Bastien DHIVER
+** Last update Sun Apr 10 15:08:56 2016 Bastien DHIVER
 */
 
 #include <sys/user.h>
@@ -65,6 +65,17 @@ void	print_ret(t_types type, long_stuff value, t_bool details)
     }
 }
 
+int	print_syscall(int syscall)
+{
+  int	i;
+
+  i = -1;
+  while (strcmp(g_syscalls[++i].name, "") != 0)
+    if (i == syscall)
+      return (print("%s(", g_syscalls[syscall].name));
+  return (print("Unimplemented syscall : %d\n", syscall), 0);
+}
+
 void		main_printing(t_regs *regs, t_bool details)
 {
   int		print_cur;
@@ -75,7 +86,8 @@ void		main_printing(t_regs *regs, t_bool details)
   i = -1;
   init_regs_tab(r, regs);
   print_cur = PRINT_SPACE;
-  print_cur -= print("%s(", g_syscalls[regs->orig_rax].name);
+  if ((print_cur -= print_syscall((int)regs->orig_rax)) == PRINT_SPACE)
+    return ;
   during = strlen(g_syscalls[regs->orig_rax].args);
   while (++i < during)
     {

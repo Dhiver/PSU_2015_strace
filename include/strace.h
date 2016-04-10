@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Sun Apr 10 12:27:52 2016 Bastien DHIVER
+** Last update Sun Apr 10 14:53:29 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -16,7 +16,7 @@
 # include <sys/user.h>
 
 # define USAGE			"Usage : ./strace [-s] [-p <pid>|<command>]\n"
-# define PRINT_SPACE		(39)
+# define PRINT_SPACE		(40)
 # define DEFAULT_PATH		"/usr/local/bin:/usr/bin:/bin"
 # define MAX_PRINT_CHAR		(37)
 
