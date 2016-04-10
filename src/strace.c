@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:19:04 2016 Bastien DHIVER
-** Last update Tue Apr  5 17:50:28 2016 florian videau
+** Last update Sun Apr 10 14:31:52 2016 Bastien DHIVER
 */
 
 #include <errno.h>
@@ -40,7 +40,7 @@ int		get_args(int ac, char **av, t_args *args)
 	args->details = TRUE;
       else if (opt == 'p')
 	{
-	  if (get_nbr(optarg, &p) || p <= 1)
+	  if (get_nbr(optarg, &p) || p <= 0)
 	    return (display_usage());
 	  g_pid = (pid_t)p;
 	  g_attach = TRUE;
