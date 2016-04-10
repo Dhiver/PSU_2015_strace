@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:41:06 2016 Bastien DHIVER
-** Last update Fri Apr  8 19:36:18 2016 florian videau
+** Last update Sun Apr 10 11:52:47 2016 Bastien DHIVER
 */
 
 #define _GNU_SOURCE
@@ -56,7 +56,7 @@ void	print_si_code(int signo, int code)
     {
       while (g_si_code[++i].nbr != -1)
 	if (g_si_code[i].nbr == code)
-	  print("si_code=%s", g_si_code[i].name);
+	  print("si_code=%s, ", g_si_code[i].name);
     }
   else
     while (g_sig_groups[++i].idx != -1)
@@ -91,7 +91,7 @@ void	aff_signal(siginfo_t *info)
       }
   print_si_code(info->si_signo, info->si_code);
   print_si_extra(info);
-  print("%s +++", g_signals[i].name);
+  print("%s +++\n", g_signals[i].name);
   kill(g_pid, info->si_signo);
 }
 
