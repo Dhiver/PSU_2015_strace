@@ -5,13 +5,13 @@
 ** Login   <videau_f@epitech.net>
 **
 ** Started on  Wed Apr  6 23:13:15 2016 florian videau
-** Last update Sun Apr 10 12:48:51 2016 Bastien DHIVER
+** Last update Sun Apr 10 13:07:00 2016 Bastien DHIVER
 */
 
 #ifndef SIGNALS_H_
 # define SIGNALS_H_
 
-#define _GNU_SOURCE
+# define _GNU_SOURCE
 # include <signal.h>
 
 typedef	struct	s_signals
