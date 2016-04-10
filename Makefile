@@ -4,7 +4,7 @@
 ## Login   <dhiver_b@epitech.net>
 ## 
 ## Started on  Thu Mar 31 13:20:36 2016 Bastien DHIVER
-## Last update Thu Apr 07 17:00:55 2016 Bastien DHIVER
+## Last update Sun Apr 10 12:28:27 2016 Bastien DHIVER
 ##
 
 CC	= gcc
@@ -28,7 +28,8 @@ SRCS	= $(SRCF)strace.c		\
 	  $(SRCF)find_executable.c	\
 	  $(SRCF)print_fct.c		\
 	  $(SRCF)print_fct_again.c	\
-	  $(SRCF)init_tabs.c
+	  $(SRCF)init_tabs.c		\
+	  $(SRCF)print_signals.c
 
 OBJS	= $(SRCS:.c=.o)
 
