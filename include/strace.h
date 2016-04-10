@@ -5,7 +5,7 @@
 ** Login   <dhiver_b@epitech.net>
 **
 ** Started on  Thu Mar 31 13:18:57 2016 Bastien DHIVER
-** Last update Sun Apr 10 14:53:29 2016 Bastien DHIVER
+** Last update Sun Apr 10 20:06:33 2016 Bastien DHIVER
 */
 
 #ifndef	STRACE_H_
@@ -14,6 +14,7 @@
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/user.h>
+# include <syscalls.h>
 
 # define USAGE			"Usage : ./strace [-s] [-p <pid>|<command>]\n"
 # define PRINT_SPACE		(40)
@@ -44,8 +45,17 @@ typedef	struct			s_args
 
 typedef struct			s_pr_type
 {
-  int				(*ft_p)(long_stuff, t_bool, t_bool);
+  int				(*ft_p)(long_stuff, void *);
 }				t_pr_type;
+
+typedef struct			s_call
+{
+  t_pr_type			pr_type[E_END + 1];
+  t_regs			regs;
+  long_stuff			args_val[7];
+  t_bool			details;
+  t_bool			is_child;
+}				t_call;
 
 /*
 ** utils.c
@@ -56,8 +66,8 @@ int				get_nbr(char *, long int *);
 /*
 ** trace.c
 */
-int				be_the_parent(t_bool);
-int				be_the_child(t_args *);
+int				be_the_parent(t_call *);
+int				be_the_child(t_args *, t_call *);
 
 /*
 ** signals.c
@@ -67,26 +77,26 @@ void				get_sigint(int);
 /*
 ** printing.c
 */
-void				main_printing(t_regs *, t_bool);
-void				print_execve(t_args *);
+void				main_printing(t_call *);
+void				print_execve(t_args *, t_call *);
 
 /*
 ** print_fct.c
 */
-int				print_unkn(long_stuff, t_bool, t_bool);
-int				print_int(long_stuff, t_bool, t_bool);
-int				print_str(long_stuff, t_bool, t_bool);
-int				print_addr(long_stuff, t_bool, t_bool);
-int				print_struc(long_stuff, t_bool, t_bool);
+int				print_unkn(long_stuff, void *);
+int				print_int(long_stuff, void *);
+int				print_str(long_stuff, void *);
+int				print_addr(long_stuff, void *);
+int				print_struc(long_stuff, void *);
 
 /*
 ** print_fct_again.c
 */
-int				print_size_t(long_stuff, t_bool, t_bool);
-int				print_two_int(long_stuff, t_bool, t_bool);
-int				print_usi_l(long_stuff, t_bool, t_bool);
-int				print_strstr(long_stuff, t_bool, t_bool);
-int				print_long(long_stuff, t_bool, t_bool);
+int				print_size_t(long_stuff, void *);
+int				print_two_int(long_stuff, void *);
+int				print_usi_l(long_stuff, void *);
+int				print_strstr(long_stuff, void *);
+int				print_long(long_stuff, void *);
 
 /*
 ** find_executable.c
@@ -96,7 +106,7 @@ char				*find_executable(char *);
 /*
 ** init_tabs.c
 */
-void				init_regs_tab(long_stuff *, t_regs *);
+void				init_regs_tab(t_call *);
 void				init_pr_type(t_pr_type *);
 
 /*
